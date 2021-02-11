@@ -1,13 +1,10 @@
-require('dotenv').config()
+require('dotenv').config({path: "./config/.env"})
 
 
 
 const {DB_DATABASE, DB_HOST, DB_USER, DB_PASSWORD} = process.env
 
-console.log(DB_USER)
-console.log(DB_PASSWORD)
-console.log(DB_DATABASE)
-console.log(DB_HOST)
+
 
 module.exports={
   "development": {
