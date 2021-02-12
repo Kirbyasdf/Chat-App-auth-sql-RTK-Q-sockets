@@ -22,12 +22,14 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
 	const { username, password } = req.body;
 	const valueToSearch = username.toLowerCase();
+
 	try {
 		const user = await User.findOne({
 			where: {
 				username: valueToSearch,
 			},
 		});
+		console.log(user);
 		if (user && (await bcrypt.compare(password, user.password))) {
 			const userWithToken = generateToken(user.get({ raw: true }));
 			return res.send({

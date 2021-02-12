@@ -1,27 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import AuthService from "../../services/authService";
 import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
-const { REACT_APP_BASE_URL } = process.env;
-
 const Login = ({ history }) => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("itsurboy");
+	const [password, setPassword] = useState("12341234");
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-		try {
-			const res = await axios.post(REACT_APP_BASE_URL + "/login", {
-				username,
-				password,
-			});
-			console.log(res);
-		} catch (e) {
-			console.error(e);
-		}
+		const res = await AuthService.login({ username, password });
+		console.log(res);
 	};
+
 	return (
 		<div id="auth-container">
 			<div id="auth-card">

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import AuthService from "../../services/authService";
 import registerImage from "../../assets/images/register.svg";
 import "./Auth.scss";
-
-const { REACT_APP_BASE_URL } = process.env;
 
 const Register = () => {
 	const [username, setUsername] = useState("");
@@ -12,19 +10,9 @@ const Register = () => {
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-		try {
-			const res = await axios.post(REACT_APP_BASE_URL + "/register", {
-				username,
-				password,
-			});
-			console.log(res);
-		} catch (e) {
-			if (e.response.data.errors) {
-				alert([e.response.data.errors]);
-			} else {
-				alert("username is already taken");
-			}
-		}
+
+		const res = await AuthService.register({ username, password });
+		console.log(res);
 	};
 
 	return (
