@@ -1,10 +1,27 @@
 import React, { useState } from "react";
-import loginImage from "../../assets/images/login.svg";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
+const { REACT_APP_BASE_URL } = process.env;
+
 const Login = ({ history }) => {
+	const [username, setUsername] = useState("john");
+	const [password, setPassword] = useState("12341234");
+
+	const submitForm = async (e) => {
+		e.preventDefault();
+		try {
+			const res = await axios.post(REACT_APP_BASE_URL + "/login", {
+				username,
+				password,
+			});
+			console.log(res);
+		} catch (e) {
+			console.error(e);
+		}
+	};
 	return (
 		<div id="auth-container">
 			<div id="auth-card">
@@ -16,9 +33,11 @@ const Login = ({ history }) => {
 					<div id="form-section">
 						<h2>Welcome back</h2>
 
-						<form>
+						<form onSubmit={submitForm}>
 							<div className="input-field mb-1">
 								<input
+									onChange={(e) => setUsername(e.target.value)}
+									value={username}
 									required="required"
 									type="text"
 									placeholder="username"
@@ -27,6 +46,8 @@ const Login = ({ history }) => {
 
 							<div className="input-field mb-2">
 								<input
+									onChange={(e) => setPassword(e.target.value)}
+									value={password}
 									required="required"
 									type="password"
 									placeholder="password"
