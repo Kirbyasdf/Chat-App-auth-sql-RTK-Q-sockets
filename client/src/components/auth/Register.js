@@ -17,6 +17,7 @@ const Register = () => {
 				username,
 				password,
 			});
+			console.log(res);
 		} catch (e) {
 			if (e.response.data.errors) {
 				alert([e.response.data.errors]);
