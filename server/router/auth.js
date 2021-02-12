@@ -1,20 +1,12 @@
 const router = require("express").Router();
-const { body } = require("express-validator");
+const { validate } = require("../validators");
+const { rules: registrationRules } = require("../validators/auth/register");
+const { rules: loginRules } = require("../validators/auth/login");
 
 const { register, login } = require("../controllers/auth");
 
-router.post(
-	"/register",
-	[
-		body("firstName").notEmpty(),
-		body("lastName").notEmpty(),
-		body("gender").notEmpty(),
-		body("email").isEmail(),
-		body("password").notEmpty(),
-	],
-	register
-);
+router.post("/register", [registrationRules, validate], register);
 
-router.post("/login", login);
+router.post("/login", [loginRules, validate], login);
 
 module.exports = router;

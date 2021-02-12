@@ -1,16 +1,10 @@
 const User = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
 
 const { APP_KEY } = process.env;
 
 exports.register = async (req, res) => {
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
-		return res.status(400).json({ success: true, errors });
-	}
-
 	try {
 		const user = await User.create(req.body);
 
