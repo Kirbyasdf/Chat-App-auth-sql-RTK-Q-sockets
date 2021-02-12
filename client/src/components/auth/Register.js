@@ -10,7 +10,6 @@ const Register = () => {
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-
 		const res = await AuthService.register({ username, password });
 		console.log(res);
 	};

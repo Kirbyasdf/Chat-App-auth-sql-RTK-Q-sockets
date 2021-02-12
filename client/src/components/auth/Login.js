@@ -5,8 +5,8 @@ import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
 const Login = ({ history }) => {
-	const [username, setUsername] = useState("itsurboy");
-	const [password, setPassword] = useState("12341234");
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const submitForm = async (e) => {
 		e.preventDefault();
