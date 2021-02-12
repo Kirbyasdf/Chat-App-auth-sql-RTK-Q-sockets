@@ -7,8 +7,8 @@ import "./Auth.scss";
 const { REACT_APP_BASE_URL } = process.env;
 
 const Register = () => {
-	const [username, setUsername] = useState("bBALLer");
-	const [password, setPassword] = useState("125");
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const submitForm = async (e) => {
 		e.preventDefault();
