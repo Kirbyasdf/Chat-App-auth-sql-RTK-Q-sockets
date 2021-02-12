@@ -6,6 +6,7 @@ const { APP_KEY } = process.env;
 
 exports.register = async (req, res) => {
 	try {
+		// req.body = {username: "exAMpLE", passowrd: "string"}
 		const dbEntry = { ...req.body, username: req.body.username.toLowerCase() };
 		const user = await User.create(dbEntry);
 		const userWithToken = generateToken(user.get({ raw: true }));
@@ -20,7 +21,6 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
 	const { username, password } = req.body;
-
 	const valueToSearch = username.toLowerCase();
 	try {
 		const user = await User.findOne({

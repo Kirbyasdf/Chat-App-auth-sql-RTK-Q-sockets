@@ -20,42 +20,21 @@ const Register = () => {
 								<input
 									required="required"
 									type="text"
-									placeholder="Email"
-								/>
-							</div>
-							<div className="input-field mb-1">
-								<input
-									required="required"
-									type="text"
-									placeholder="Email"
-								/>
-							</div>
-							<div className="input-field mb-1">
-								<input
-									required="required"
-									type="text"
-									placeholder="Email"
-								/>
-							</div>
-							<div className="input-field mb-1">
-								<input
-									required="required"
-									type="text"
-									placeholder="Email"
+									placeholder="username"
 								/>
 							</div>
 							<div className="input-field mb-2">
 								<input
 									required="required"
 									type="password"
-									placeholder="Password"
+									placeholder="password"
 								/>
 							</div>
 							<button>LOGIN</button>
 						</form>
 
-						<p>
-							Don't have an account? <Link to="/register">Register</Link>
+						<p className="ml4">
+							Already have an account? <Link to="/login">Login</Link>
 						</p>
 					</div>
 				</div>

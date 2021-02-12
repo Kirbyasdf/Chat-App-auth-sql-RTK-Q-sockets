@@ -21,7 +21,7 @@ const Login = ({ history }) => {
 								<input
 									required="required"
 									type="text"
-									placeholder="Email"
+									placeholder="username"
 								/>
 							</div>
 
@@ -29,14 +29,14 @@ const Login = ({ history }) => {
 								<input
 									required="required"
 									type="password"
-									placeholder="Password"
+									placeholder="password"
 								/>
 							</div>
 
 							<button>LOGIN</button>
 						</form>
 
-						<p>
+						<p className="ml4">
 							Don't have an account? <Link to="/register">Register</Link>
 						</p>
 					</div>
