@@ -6,31 +6,26 @@ const { APP_KEY } = process.env;
 
 exports.register = async (req, res) => {
 	try {
-		const user = await User.create(req.body);
-
+		const dbEntry = { ...req.body, username: req.body.username.toLowerCase() };
+		const user = await User.create(dbEntry);
 		const userWithToken = generateToken(user.get({ raw: true }));
 		return res.send({
 			succes: true,
 			userWithToken,
 		});
-
-		return res.status(401).send({
-			succes: true,
-			code: res.statusCode,
-		});
 	} catch (e) {
 		return res.status(500).send({ success: false, error: e.message });
 	}
-
-	return res.send([email, password]);
 };
 
 exports.login = async (req, res) => {
-	const { email, password } = req.body;
+	const { username, password } = req.body;
+
+	const valueToSearch = username.toLowerCase();
 	try {
 		const user = await User.findOne({
 			where: {
-				email,
+				username: valueToSearch,
 			},
 		});
 		if (user && (await bcrypt.compare(password, user.password))) {
