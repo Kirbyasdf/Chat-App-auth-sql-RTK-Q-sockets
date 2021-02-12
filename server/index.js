@@ -7,6 +7,7 @@ const { APP_PORT } = process.env
 const app = express()
 const PORT = APP_PORT || 4000
 
+app.use(express.json())
 app.use(morgan('dev'))
 app.use(router)
 
