@@ -4,6 +4,10 @@ const jwt = require("jsonwebtoken");
 
 const { APP_KEY } = process.env;
 
+exports.loadUser = async (req, res) => {
+	res.send({ sucess: false, msg: "working homie" });
+};
+
 exports.register = async (req, res) => {
 	try {
 		const dbEntry = { ...req.body, username: req.body.username.toLowerCase() };
@@ -38,7 +42,7 @@ exports.login = async (req, res) => {
 		}
 
 		return res.status(401).send({
-			succes: true,
+			succes: false,
 			code: res.statusCode,
 		});
 	} catch (e) {

@@ -3,7 +3,9 @@ const { validate } = require("../validators");
 const { rules: registrationRules } = require("../validators/auth/register");
 const { rules: loginRules } = require("../validators/auth/login");
 
-const { register, login } = require("../controllers/auth");
+const { register, login, loadUser } = require("../controllers/auth");
+
+router.get("/", loadUser);
 
 router.post("/register", [registrationRules, validate], register);
 

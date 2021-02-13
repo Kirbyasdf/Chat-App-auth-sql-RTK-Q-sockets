@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import AuthService from "../../services/authService";
 import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
@@ -7,11 +8,16 @@ import "./Auth.scss";
 const Login = ({ history }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const dispatch = useDispatch();
+	const { isAuthenticated } = useSelector((state) => state.auth);
+
+	if (isAuthenticated) {
+		return <Redirect to="/chat" />;
+	}
 
 	const submitForm = async (e) => {
 		e.preventDefault();
 		const res = await AuthService.login({ username, password });
-		console.log(res);
 	};
 
 	return (

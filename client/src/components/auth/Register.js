@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../services/authService";
 import registerImage from "../../assets/images/register.svg";

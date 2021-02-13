@@ -14,7 +14,7 @@ app.use(morgan("dev"));
 app.use(router);
 
 app.get("*", (req, res) => {
-	res.status(404).send({ success: true, status: res.statusCode });
+	res.status(404).send({ success: false, status: res.statusCode });
 });
 
 app.listen(PORT, () => console.log("Sever good to go on PORT: " + PORT));
