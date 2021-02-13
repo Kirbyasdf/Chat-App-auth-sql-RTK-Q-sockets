@@ -1,52 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reducers } from "./authReducers";
 
 const authSlice = createSlice({
 	name: "auth",
 	initialState: {
-		loading: "idle",
 		user: null,
+		token: null,
 		isAuthenticated: false,
-		error: null,
 	},
 	reducers: {
-		authPending: (state) => {
-			if (state.loading === "idle") state.loading = "pending";
-		},
-		authSuccess: (state, { payload }) => {
-			if (state.loading === "pending") {
-				state.loading = "idle";
-				state.user = payload.user;
-				state.isAuthenticated = true;
-			}
-		},
-		authFailed: (state) => {
-			if (state.loading === "pending") {
-				state.loading = "idle";
-				state.form = null;
-			}
-		},
-		loginPending: (state) => {
-			if (state.loading === "idle") state.loading = "pending";
-		},
-		loginSuccess: (state, { payload }) => {
-			if (state.loading === "pending") {
-				state.loading = "idle";
-				state.token = payload;
-				state.isAuthenticated = true;
-			}
-		},
-		loginFailed: (state, { payload }) => {
-			if (state.loading === "pending") {
-				state.loading = "idle";
-				state.error = payload.error;
-			}
-		},
-		logout(state) {
-			state.user = null;
-			state.loading = "idle";
-			state.isAuthenticated = false;
-		},
+		logout: () => initialState,
+	},
+	extraReducers: (builder) => {
+		builder
+			.addMatcher(authAPI.endpoints.login.matchPending, (state, action) => {
+				console.log("pending", action);
+			})
+			.addMatcher(authAPI.endpoints.login.matchFulfilled, (state, action) => {
+				console.log("fulfilled", action);
+				state.user = action.payload.result.user;
+				state.token = action.payload.result.token;
+			})
+			.addMatcher(authAPI.endpoints.login.matchRejected, (state, action) => {
+				console.log("rejected", action);
+			});
 	},
 });
 

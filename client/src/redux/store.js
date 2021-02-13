@@ -1,10 +1,10 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-// import logger from "redux-logger";
+import { API } from "../services/api";
 import auth from "./auth/authSlice";
 
 const otherReducerExample = {};
 
 export const store = configureStore({
-	reducer: { auth, otherReducerExample },
-	middleware: getDefaultMiddleware(),
+	reducer: { auth, [API.reducerPath]: API.reducer },
+	middleware: getDefaultMiddleware().concat(API.middleware),
 });

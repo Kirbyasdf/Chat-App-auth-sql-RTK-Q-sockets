@@ -1,10 +1,15 @@
-import axios from "axios";
+import { createApi, fetchBaseQuery } from "@rtk-incubator/rtk-query";
 
 const { REACT_APP_BASE_URL } = process.env;
 
-export default axios.create({
-	baseURL: REACT_APP_BASE_URL,
-	headers: {
-		Accept: "application/json",
-	},
+export const API = createApi({
+	reducerPath: "authQuery",
+	baseQuery: fetchBaseQuery({ baseUrl: REACT_APP_BASE_URL }),
+	endpoints: (builder) => ({
+		loadUser: builder.query({
+			query: () => `/auth`,
+		}),
+	}),
 });
+
+export const { useLoadUserQuery } = API;

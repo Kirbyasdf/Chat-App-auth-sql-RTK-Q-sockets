@@ -1,19 +1,20 @@
 import { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { loadUser } from "./redux/auth/authActions";
-
+import { useLoadUserQuery } from "./services/api";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Chat from "./components/chat/Chat";
 
 export const App = () => {
-	const dispatch = useDispatch();
-
 	useEffect(() => {
 		const token = localStorage.getItem("token");
-		if (token) dispatch(loadUser(token));
+		autheticate();
 	}, []);
+
+	const autheticate = () => {
+		const res = useLoadUserQuery();
+		console.log(res);
+	};
 
 	return (
 		<Switch>
