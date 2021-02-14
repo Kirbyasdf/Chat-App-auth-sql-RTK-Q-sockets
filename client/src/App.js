@@ -8,13 +8,8 @@ import Chat from "./components/chat/Chat";
 export const App = () => {
 	useEffect(() => {
 		const token = localStorage.getItem("token");
-		autheticate();
+		useLoadUserQuery();
 	}, []);
-
-	const autheticate = () => {
-		const res = useLoadUserQuery();
-		console.log(res);
-	};
 
 	return (
 		<Switch>

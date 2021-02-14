@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { APP_KEY } = process.env;
 
 exports.loadUser = async (req, res) => {
+	// automatic auth until token middleware is done
 	res.send({ sucess: true, msg: "working homie" });
 };
 
