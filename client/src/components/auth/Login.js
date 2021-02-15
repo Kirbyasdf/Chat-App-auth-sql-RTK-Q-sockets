@@ -15,6 +15,7 @@ export const Login = ({ history }) => {
 
 	const submitForm = async (e) => {
 		e.preventDefault();
+
 		const res = await login(form);
 		// if you want to create an error , simply send a 1 character long password which the validators on the sever will reject
 		!res.error && res.data.success && history.push("/private");
