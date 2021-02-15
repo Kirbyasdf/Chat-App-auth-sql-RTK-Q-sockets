@@ -15,7 +15,7 @@ export const Login = ({ history }) => {
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-		const res = await login(form);
+		const res = await login(form, history);
 		console.log(res);
 	};
 
