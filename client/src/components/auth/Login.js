@@ -11,7 +11,7 @@ export const Login = ({ history }) => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const { password, username } = form;
 
-	isAuthenticated && <Redirect to="/chat" />;
+	isAuthenticated && <Redirect to="/private" />;
 
 	const submitForm = async (e) => {
 		e.preventDefault();
