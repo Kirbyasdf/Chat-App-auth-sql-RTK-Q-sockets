@@ -4,7 +4,7 @@ import { RootState } from "../redux/store";
 const { REACT_APP_BASE_URL } = process.env;
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: REACT_APP_BASE_URL,
+	baseUrl: "http://127.0.0.1:4000",
 	prepareHeaders: (headers) => {
 		const token = RootState().auth.token;
 		if (token) {
