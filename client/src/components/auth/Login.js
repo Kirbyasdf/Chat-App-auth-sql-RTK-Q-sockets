@@ -6,17 +6,18 @@ import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
 export const Login = ({ history }) => {
-	const [form, setForm] = useState({ username: "", password: "" });
+	const [form, setForm] = useState({ username: "test", password: "123456" });
 	const [login, { isLoading }] = useLoginMutation();
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const { password, username } = form;
 
-	isAuthenticated && <Redirect to="/chat" />;
+	isAuthenticated && <Redirect to="/private" />;
 
 	const submitForm = async (e) => {
 		e.preventDefault();
 		const res = await login(form);
-		console.log(res);
+		// if you want to create an error , simply send a 1 character long password which the validators on the sever will reject
+		!res.error && res.data.success && history.push("/private");
 	};
 
 	return (

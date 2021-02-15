@@ -5,7 +5,7 @@ exports.validate = (req, res, next) => {
 
 	if (!errors.isEmpty()) {
 		console.error(errors);
-		return res.status(400).json({ success: true, errors: errors.array() });
+		return res.status(400).json({ success: false, errors: errors.array() });
 	}
 	next();
 };
