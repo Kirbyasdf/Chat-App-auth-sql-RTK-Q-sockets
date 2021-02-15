@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useLoadUserQuery } from "../../services/api";
+import { useSelector } from "react-redux";
+import { useLoginMutation } from "../../services/api";
 import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
-const Login = ({ history }) => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const dispatch = useDispatch();
+export const Login = ({ history }) => {
+	const [form, setForm] = useState({ username: "", password: "" });
+	const [login, { isLoading }] = useLoginMutation();
 	const { isAuthenticated } = useSelector((state) => state.auth);
+	const { password, username } = form;
 
 	isAuthenticated && <Redirect to="/chat" />;
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-		// const results = useLoadUserQuery();
+		const res = await login(form);
+		console.log(res);
 	};
 
 	return (
@@ -32,7 +33,12 @@ const Login = ({ history }) => {
 						<form onSubmit={submitForm}>
 							<div className="input-field mb-1">
 								<input
-									onChange={(e) => setUsername(e.target.value)}
+									onChange={(e) =>
+										setForm({
+											...form,
+											username: e.target.value,
+										})
+									}
 									value={username}
 									required="required"
 									type="text"
@@ -42,7 +48,12 @@ const Login = ({ history }) => {
 
 							<div className="input-field mb-2">
 								<input
-									onChange={(e) => setPassword(e.target.value)}
+									onChange={(e) =>
+										setForm({
+											...form,
+											password: e.target.value,
+										})
+									}
 									value={password}
 									required="required"
 									type="password"
@@ -62,5 +73,3 @@ const Login = ({ history }) => {
 		</div>
 	);
 };
-
-export default Login;

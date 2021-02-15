@@ -1,12 +1,14 @@
 import { Link, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Fragment } from "react";
 
-const Chat = () => {
-	const { isAuthenticated } = useSelector((state) => state.auth);
-
-	!isAuthenticated && <Redirect to="/login" />;
-
-	return <h1>Chat Screen</h1>;
-};
+const Chat = () => (
+	<Fragment>
+		<h1>
+			You are <span style={{ color: "red" }}>not</span> Authenticated
+		</h1>
+		<Link to="/login">Login</Link>;
+	</Fragment>
+);
 
 export default Chat;

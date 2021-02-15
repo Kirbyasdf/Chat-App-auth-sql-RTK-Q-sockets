@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import AuthService from "../../services/authService";
 import registerImage from "../../assets/images/register.svg";
 import "./Auth.scss";
 
-const Register = () => {
+export const Register = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-		const res = await AuthService.register({ username, password });
-		console.log(res);
 	};
 
 	return (
@@ -54,5 +51,3 @@ const Register = () => {
 		</div>
 	);
 };
-
-export default Register;

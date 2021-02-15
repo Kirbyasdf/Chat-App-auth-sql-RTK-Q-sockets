@@ -1,15 +1,41 @@
 import { createApi, fetchBaseQuery } from "@rtk-incubator/rtk-query";
+import { RootState } from "../redux/store";
 
 const { REACT_APP_BASE_URL } = process.env;
 
-export const API = createApi({
+const baseQuery = fetchBaseQuery({
+	baseUrl: REACT_APP_BASE_URL,
+	prepareHeaders: (headers) => {
+		const token = RootState().auth.token;
+		if (token) {
+			headers.set("authorization", `Bearer ${token}`);
+		}
+		return headers;
+	},
+});
+
+export const api = createApi({
 	reducerPath: "authQuery",
-	baseQuery: fetchBaseQuery({ baseUrl: REACT_APP_BASE_URL }),
+	baseQuery,
+	entityTypes: ["Auth"],
 	endpoints: (builder) => ({
-		loadUser: builder.query({
+		authenticate: builder.query({
 			query: () => `/auth`,
+			provides: "Auth",
+		}),
+		login: builder.mutation({
+			query: (form) => ({
+				url: "auth/login",
+				method: "POST",
+				body: form,
+			}),
+			invalidates: "Auth",
 		}),
 	}),
 });
 
-export const { useLoadUserQuery } = API;
+export const { useAuthenticateQuery, useLoginMutation } = api;
+
+export const {
+	endpoints: { login },
+} = api;
