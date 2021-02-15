@@ -3,8 +3,7 @@ import { api } from "../../services/api";
 
 const initialState = {
 	user: null,
-	token:
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEzMzgzNDg0LCJleHAiOjE2MTM0Njk4ODR9.3p7ybrT5Tl6C53se7N20aAUcyQhxqPYP7J29tJcEIA4",
+	token: null,
 	isAuthenticated: false,
 };
 
