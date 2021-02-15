@@ -6,7 +6,6 @@ const { APP_KEY } = process.env;
 
 exports.loadUser = async (req, res) => {
 	const { user } = req;
-	console.log(user);
 
 	try {
 		res.status(200).json({
@@ -34,22 +33,15 @@ exports.login = async (req, res) => {
 	const valueToSearch = username.toLowerCase();
 
 	try {
-		const user = {
-			id: 1,
-			username: "test user",
-			about: "hello I am a test object sent everytime if the token is valid",
-		};
-		return sendTokenResponse(user, 200, res);
+		const user = await User.scope("withPassword").findOne({
+			where: {
+				username: valueToSearch,
+			},
+		});
+		if (user && (await bcrypt.compare(password, user.password))) {
+			return sendTokenResponse(user, 200, res);
+		}
 
-		// again this is the full code, instead you have the above to make it easy
-		// const user = await User.scope("withPassword").findOne({
-		// 	where: {
-		// 		username: valueToSearch,
-		// 	},
-		// });
-		// if (user && (await bcrypt.compare(password, user.password))) {
-		// 	return sendTokenResponse(user, 200, res);
-		// }
 		return res.status(401).send({
 			succes: false,
 			code: res.statusCode,
@@ -65,26 +57,20 @@ const generateToken = (user) => {
 		id,
 	};
 
-	const token = jwt.sign(payload, "DEMO KEY", {
-		expiresIn: 86400,
-	});
-
-	return token;
-};
-
-const sendTokenResponse = (user, statusCode, res) => {
-	const token = generateToken(user);
-	// const token = generateToken(user.get({ raw: true }));
-	// const options = {
-	// 	expires: new Date(Date.now() + APP_KEY * 24 * 60 * 60 * 1000),
-	// 	httpOnly: true,
-	// };
-
-	console.log(token);
+	const options = {
+		expires: new Date(Date.now() + APP_KEY * 24 * 60 * 60 * 1000),
+		httpOnly: true,
+	};
 
 	if (process.env.NODE_ENV === "production") {
 		options.secure = true;
 	}
 
+	const token = jwt.sign(payload, APP_KEY);
+	return token;
+};
+
+const sendTokenResponse = (user, statusCode, res) => {
+	const token = generateToken(user.get({ raw: true }));
 	res.status(statusCode).cookie("token", token).json({ success: true, token });
 };

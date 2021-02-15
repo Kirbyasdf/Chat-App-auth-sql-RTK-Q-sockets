@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export const Chat = () => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 
-	isAuthenticated && <Redirect to="/private" />;
+	if (isAuthenticated) return <Redirect to="/private" />;
 
 	return (
 		<Fragment>
@@ -16,4 +16,3 @@ export const Chat = () => {
 		</Fragment>
 	);
 };
-

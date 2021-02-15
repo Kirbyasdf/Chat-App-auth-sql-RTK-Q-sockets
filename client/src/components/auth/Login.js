@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLoginMutation } from "../../services/api";
+import { useAuthenticateQuery, useLoginMutation } from "../../services/api";
 import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
 export const Login = ({ history }) => {
-	const [form, setForm] = useState({ username: "test", password: "123456" });
-	const [login, { isLoading }] = useLoginMutation();
+	const [form, setForm] = useState({ username: "john", password: "12341234" });
+	const [login] = useLoginMutation();
+	const { isLoading } = useAuthenticateQuery();
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const { password, username } = form;
 
-	isAuthenticated && <Redirect to="/private" />;
+	if (isAuthenticated && !isLoading) {
+		return <Redirect to="/private" />;
+	}
 
 	const submitForm = async (e) => {
 		e.preventDefault();
 
-		const res = await login(form);
-		// if you want to create an error , simply send a 1 character long password which the validators on the sever will reject
-		!res.error && res.data.success && history.push("/private");
+		const res = login(form);
+		!res.error && res.data?.success && !isLoading && history.push("/private");
 	};
 
 	return (

@@ -4,9 +4,10 @@ import { RootState } from "../redux/store";
 const { REACT_APP_BASE_URL } = process.env;
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: "http://127.0.0.1:4000",
+	baseUrl: REACT_APP_BASE_URL,
 	prepareHeaders: (headers) => {
-		const token = RootState().auth.token;
+		const token = RootState().auth?.token;
+		console.log("fetch call", RootState().auth);
 		if (token) {
 			headers.set("authorization", `Bearer ${token}`);
 		}
@@ -21,7 +22,7 @@ export const api = createApi({
 	endpoints: (builder) => ({
 		authenticate: builder.query({
 			query: () => `/auth`,
-			provides: "Auth",
+			provides: ["Auth"],
 		}),
 		login: builder.mutation({
 			query: (form) => ({
@@ -29,7 +30,7 @@ export const api = createApi({
 				method: "POST",
 				body: form,
 			}),
-			invalidates: "Auth",
+			invalidates: ["Auth"],
 		}),
 	}),
 });

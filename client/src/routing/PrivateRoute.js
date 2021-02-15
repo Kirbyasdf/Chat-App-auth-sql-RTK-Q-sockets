@@ -4,10 +4,7 @@ import { useAuthenticateQuery } from "../services/api";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
-	const { auth } = useSelector((state) => state);
-
 	const { isLoading } = useAuthenticateQuery();
-	console.log(isAuthenticated);
 	return (
 		<Route
 			{...rest}
