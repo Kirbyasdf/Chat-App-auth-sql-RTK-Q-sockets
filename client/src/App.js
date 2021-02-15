@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useAuthenticateQuery } from "./services/api";
 import { Login } from "./components/auth/Login";
 import { Register } from "./components/auth/Register";
-import Chat from "./components/chat/Chat";
+import { Chat } from "./components/chat/Chat";
 import { PrivateRoute } from "./routing/PrivateRoute";
 import { Fragment } from "react";
 
