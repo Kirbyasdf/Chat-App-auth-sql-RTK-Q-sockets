@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAuthenticateQuery } from "./services/api";
 import { logout } from "./redux/auth/authSlice";
-import { dispatch } from "react-redux";
 
 import { Login } from "./components/auth/Login";
 import { Register } from "./components/auth/Register";
@@ -10,6 +10,7 @@ import { PrivateRoute } from "./routing/PrivateRoute";
 import { Fragment } from "react";
 
 export const App = () => {
+	useAuthenticateQuery();
 	return (
 		<Switch>
 			<Route exact path="/" component={Chat} />
@@ -21,7 +22,7 @@ export const App = () => {
 	);
 };
 
-const PrivatePage = (props) => {
+const PrivatePage = () => {
 	const dispatch = useDispatch();
 	return (
 		<Fragment>

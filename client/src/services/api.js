@@ -31,10 +31,18 @@ export const api = createApi({
 			}),
 			invalidates: ["Auth"],
 		}),
+		register: builder.mutation({
+			query: (form) => ({
+				url: "auth/register",
+				method: "POST",
+				body: form,
+			}),
+			invalidates: ["Auth"],
+		}),
 	}),
 });
 
-export const { useAuthenticateQuery, useLoginMutation } = api;
+export const { useAuthenticateQuery, useLoginMutation, useRegisterMutation } = api;
 
 export const {
 	endpoints: { login },

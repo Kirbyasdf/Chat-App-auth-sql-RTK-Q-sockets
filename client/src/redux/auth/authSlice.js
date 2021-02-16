@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { api } from "../../services/api";
 import { removeToken, storeToken } from "../../utils/tokenStorage";
 
@@ -22,6 +22,10 @@ const authSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addMatcher(api.endpoints.login.matchFulfilled, (state, { payload }) => {
+				state.token = payload.result.token;
+				storeToken(payload.result.token);
+			})
+			.addMatcher(api.endpoints.register.matchFulfilled, (state, { payload }) => {
 				state.token = payload.result.token;
 				storeToken(payload.result.token);
 			})
