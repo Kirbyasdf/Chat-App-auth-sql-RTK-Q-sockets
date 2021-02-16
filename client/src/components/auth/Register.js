@@ -4,11 +4,20 @@ import registerImage from "../../assets/images/register.svg";
 import "./Auth.scss";
 
 export const Register = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [form, setForm] = useState({ username: "john", password: "12341234" });
+	const [login] = useLoginMutation();
+	const { isAuthenticated } = useSelector((state) => state.auth);
+	const { password, username } = form;
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			return history.push("/private");
+		}
+	}, [isAuthenticated]);
 
 	const submitForm = async (e) => {
 		e.preventDefault();
+		login(form);
 	};
 
 	return (
@@ -23,7 +32,12 @@ export const Register = () => {
 						<form onSubmit={submitForm}>
 							<div className="input-field mb-1">
 								<input
-									onChange={(e) => setUsername(e.target.value)}
+									onChange={(e) =>
+										setForm({
+											...form,
+											username: e.target.value,
+										})
+									}
 									value={username}
 									required="required"
 									type="text"
@@ -32,7 +46,12 @@ export const Register = () => {
 							</div>
 							<div className="input-field mb-2">
 								<input
-									onChange={(e) => setPassword(e.target.value)}
+									onChange={(e) =>
+										setForm({
+											...form,
+											password: e.target.value,
+										})
+									}
 									value={password}
 									required="required"
 									type="password"

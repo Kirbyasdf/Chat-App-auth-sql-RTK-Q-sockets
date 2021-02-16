@@ -1,26 +1,25 @@
-import { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAuthenticateQuery, useLoginMutation } from "../../services/api";
+import { useLoginMutation } from "../../services/api";
 import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
 export const Login = ({ history }) => {
 	const [form, setForm] = useState({ username: "john", password: "12341234" });
 	const [login] = useLoginMutation();
-	const { isLoading } = useAuthenticateQuery();
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const { password, username } = form;
 
-	if (isAuthenticated && !isLoading) {
-		return <Redirect to="/private" />;
-	}
+	useEffect(() => {
+		if (isAuthenticated) {
+			return history.push("/private");
+		}
+	}, [isAuthenticated]);
 
 	const submitForm = async (e) => {
 		e.preventDefault();
-
-		const res = login(form);
-		!res.error && res.data?.success && !isLoading && history.push("/private");
+		login(form);
 	};
 
 	return (
@@ -30,7 +29,6 @@ export const Login = ({ history }) => {
 					<div id="image-section">
 						<img src={loginImage} alt="Login" />
 					</div>
-
 					<div id="form-section">
 						<h2>Welcome back</h2>
 

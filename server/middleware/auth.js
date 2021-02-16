@@ -18,12 +18,9 @@ protect = async (req, res, next) => {
 			.send({ success: false, msg: "Not Authorized for route use :no token " });
 	}
 
-	console.log(token);
-
 	try {
 		const decoded = jwt.verify(token, APP_KEY);
 		const { id } = decoded;
-		console.log(id);
 		const user = await User.findByPk(id);
 
 		req.user = user;
