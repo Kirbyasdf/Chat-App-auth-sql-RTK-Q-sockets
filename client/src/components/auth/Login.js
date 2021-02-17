@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLoginMutation } from "../../services/api";
+import { useLoginMutation, useAuthenticateQuery } from "../../services/api";
 import loginImage from "../../assets/images/login.svg";
 import "./Auth.scss";
 
 export const Login = ({ history }) => {
 	const [form, setForm] = useState({ username: "john", password: "12341234" });
 	const [login] = useLoginMutation();
-	const { isAuthenticated } = useSelector((state) => state.auth);
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const { password, username } = form;
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			return history.push("/private");
+			return history.replace("/private");
 		}
 	}, [isAuthenticated]);
 

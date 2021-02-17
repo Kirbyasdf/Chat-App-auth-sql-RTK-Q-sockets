@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useAuthenticateQuery } from "../services/api";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-	const { isAuthenticated } = useSelector((state) => state.auth);
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const { isLoading } = useAuthenticateQuery();
 	return (
 		<Route

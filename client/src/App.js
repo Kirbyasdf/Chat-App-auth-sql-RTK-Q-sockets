@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuthenticateQuery } from "./services/api";
 import { logout } from "./redux/auth/authSlice";
 
@@ -23,10 +23,11 @@ export const App = () => {
 };
 
 const PrivatePage = () => {
+	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	return (
 		<Fragment>
-			<h1>you are logged in</h1>
+			<h1>you are logged in {user.username}</h1>
 			<button onClick={() => dispatch(logout())}>logout </button>
 		</Fragment>
 	);
