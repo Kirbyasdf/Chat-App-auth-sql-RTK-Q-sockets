@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useAuthenticateQuery } from "./services/api";
+// import { useAuthenticateQuery } from "./services/api";
 import { logout } from "./redux/auth/authSlice";
 
 import { Login } from "./components/auth/Login";
@@ -10,7 +10,7 @@ import { PrivateRoute } from "./routing/PrivateRoute";
 import { Fragment } from "react";
 
 export const App = () => {
-	useAuthenticateQuery();
+	// useAuthenticateQuery();
 	return (
 		<Switch>
 			<Route exact path="/" component={Chat} />

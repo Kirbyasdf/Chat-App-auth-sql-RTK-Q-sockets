@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useRegisterMutation } from "../../services/api";
-
+// import { useRegisterMutation } from "../../services/api";
+import AuthService from "../../services/authService";
 import registerImage from "../../assets/images/register.svg";
 import "./Auth.scss";
 
 export const Register = ({ history }) => {
 	const [form, setForm] = useState({ username: "john", password: "12341234" });
-	const [register] = useRegisterMutation();
+	// const [register] = useRegisterMutation();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const { password, username } = form;
 
@@ -18,9 +18,16 @@ export const Register = ({ history }) => {
 		}
 	}, [isAuthenticated]);
 
+	// const submitForm = async (e) => {
+	// 	e.preventDefault();
+	// 	register(form);
+	// };
+
 	const submitForm = async (e) => {
 		e.preventDefault();
-		register(form);
+
+		const res = await AuthService.register({ username, password });
+		console.log(res);
 	};
 
 	return (
