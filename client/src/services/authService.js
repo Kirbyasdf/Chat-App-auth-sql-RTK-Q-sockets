@@ -3,7 +3,8 @@ import API from "./api";
 export default {
 	login: async (data) => {
 		try {
-			const res = await API.post("/login", data);
+			const res = await API.post("/auth/login", data);
+			console.log(res);
 			const { token } = res.data.userWithToken;
 			return (API.defaults.headers["Authorization"] = `Bearer ${token}`);
 		} catch (e) {
@@ -14,7 +15,7 @@ export default {
 
 	register: async (data) => {
 		try {
-			const res = await API.post("/register", data);
+			const res = await API.post("/auth/register", data);
 			const { token } = res.data.userWithToken;
 			return (API.defaults.headers["Authorization"] = `Bearer ${token}`);
 		} catch (e) {
@@ -22,14 +23,15 @@ export default {
 			throw e;
 		}
 	},
-	logout: async (data) => {
-		try {
-			const res = await API.post("/login", data);
-			const { token } = res.data.userWithToken;
-			return (API.defaults.headers["Authorization"] = `Bearer ${token}`);
-		} catch (e) {
-			console.error(e);
-			throw e;
-		}
-	},
+
+	// logout: async (data) => {
+	// 	try {
+	// 		const res = await API.post("/login", data);
+	// 		const { token } = res.data.userWithToken;
+	// 		return (API.defaults.headers["Authorization"] = `Bearer ${token}`);
+	// 	} catch (e) {
+	// 		console.error(e);
+	// 		throw e;
+	// 	}
+	// },
 };
