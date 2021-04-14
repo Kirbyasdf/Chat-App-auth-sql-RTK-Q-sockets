@@ -9,12 +9,13 @@ import "./Auth.scss";
 export const Register = ({ history }) => {
 	const [form, setForm] = useState({ username: "john", password: "12341234" });
 	const [register] = useRegisterMutation();
-	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+	const stateAuth = useSelector((state) => state.auth);
+	const { isAuthenticated } = stateAuth;
 	const { password, username } = form;
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			return history.replace("/private");
+			return history.replace("/chat-home");
 		}
 	}, [isAuthenticated]);
 

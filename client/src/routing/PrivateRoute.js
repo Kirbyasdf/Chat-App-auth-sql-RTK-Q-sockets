@@ -3,13 +3,18 @@ import { useSelector } from "react-redux";
 import { useAuthenticateQuery } from "../services/api";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+	const stateAuth = useSelector((state) => state.auth);
+	const { isAuthenticated } = stateAuth;
 	const { isLoading } = useAuthenticateQuery();
 	return (
 		<Route
 			{...rest}
 			render={(props) =>
-				!isLoading && isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+				!isLoading && isAuthenticated ? (
+					<Component {...props} />
+				) : (
+					<Redirect to="/login" />
+				)
 			}
 		/>
 	);

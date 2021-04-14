@@ -1,18 +1,11 @@
-import { Link, Redirect } from "react-router-dom";
-import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { Navbar } from "./components/navbar/Navbar";
+import "./Chat.scss";
 
 export const Chat = () => {
-	const { isAuthenticated } = useSelector((state) => state.auth);
-
-	if (isAuthenticated) return <Redirect to="/private" />;
-
 	return (
-		<Fragment>
-			<h1>
-				You are <span style={{ color: "red" }}>not</span> Authenticated
-			</h1>
-			<Link to="/login">Login</Link>;
-		</Fragment>
+		<div id="chat-container">
+			<Navbar />
+			<div id="chat-wrap">DATA</div>
+		</div>
 	);
 };
