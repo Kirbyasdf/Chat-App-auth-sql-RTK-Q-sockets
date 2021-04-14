@@ -1,5 +1,6 @@
 require("dotenv").config({ path: "./config/.env" });
 const express = require("express");
+const sequelize = require("sequelize");
 const cors = require("cors");
 const morgan = require("morgan");
 const router = require("./router");

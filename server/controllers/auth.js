@@ -31,7 +31,6 @@ exports.login = async (req, res) => {
 	const { username, password } = req.body;
 
 	const valueToSearch = username.toLowerCase();
-
 	try {
 		const user = await User.scope("withPassword").findOne({
 			where: {

@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@rtk-incubator/rtk-query";
+import { createApi, fetchBaseQuery } from "@rtk-incubator/rtk-query/react";
 import { RootState } from "../redux/store";
 
 const { REACT_APP_BASE_URL } = process.env;
