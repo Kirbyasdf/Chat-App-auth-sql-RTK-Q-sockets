@@ -39,10 +39,20 @@ export const App = () => {
 	useAuthenticateQuery();
 	return (
 		<Switch>
+			<Route exact path="/" component={HomePage} />
 			<Route path="/login" component={Login} />
 			<Route path="/register" component={Register} />
 			<PrivateRoute path="/chat-home" component={Chat} />
 			<Route render={() => <h1>404 not found</h1>} />
 		</Switch>
+	);
+};
+
+const HomePage = ({ history }) => {
+	return (
+		<>
+			<h1>Home Page</h1>
+			<span onClick={() => history.replace("login")}> login</span>
+		</>
 	);
 };
