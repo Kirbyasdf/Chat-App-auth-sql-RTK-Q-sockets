@@ -11,11 +11,25 @@ export const Navbar = () => {
 	const dispatch = useDispatch();
 	const [showProfileOptions, setShowProfileOptions] = useState(false);
 	const [showProfileModal, setShowProfileModal] = useState(false);
-	const [form, setForm] = useState({ username: "", password: "" });
-	const { password, username } = form;
+	const [form, setForm] = useState({
+		username: "",
+		newPassword: "",
+		confirmPassword: "",
+		currentPassword: "",
+	});
+	const { username, newPassword, confirmPassword, currentPassword } = form;
 
 	const submitForm = (e) => {
-		e.preventDefault();
+		console.log("asdf");
+		if (newPassword != confirmPassword) {
+			alert("New Passwords don't match");
+			setForm({
+				...form,
+				newPassword: "",
+				confirmPassword: "",
+			});
+			return;
+		}
 	};
 
 	return (
@@ -65,21 +79,60 @@ export const Navbar = () => {
 										onChange={(e) =>
 											setForm({
 												...form,
-												password: e.target.value,
+												newPassword: e.target.value,
 											})
 										}
-										value={password}
+										value={newPassword}
 										required="required"
 										type="password"
-										placeholder="password"
+										placeholder="New Password"
 									/>
+								</div>
+								<div
+									className="input-field mb-3"
+									style={{ marginBottom: "1em" }}
+								>
+									<input
+										onChange={(e) =>
+											setForm({
+												...form,
+												confirmPassword: e.target.value,
+											})
+										}
+										value={confirmPassword}
+										required="required"
+										type="password"
+										placeholder="Confirm New Password"
+									/>
+								</div>
+								<div className="input-field mb-4">
+									<input
+										onChange={(e) =>
+											setForm({
+												...form,
+												currentPassword: e.target.value,
+											})
+										}
+										value={currentPassword}
+										required="required"
+										type="password"
+										placeholder="Current Password"
+									/>
+								</div>
+								<div style={{ marginTop: "1em" }}>
+									Forgot Password? Email{" "}
+									<a className="grow b  hover-purple light-purple">
+										Help@chatapp.com
+									</a>
 								</div>
 							</form>
 						</Fragment>
 
 						<Fragment key="footer">
 							{" "}
-							<button className="btn-success">Update</button>
+							<button className="btn-success" onClick={submitForm}>
+								Update
+							</button>
 						</Fragment>
 					</Modal>
 				)}
