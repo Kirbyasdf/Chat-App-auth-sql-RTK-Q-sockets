@@ -8,10 +8,10 @@ import "./Auth.scss";
 
 export const Register = ({ history }) => {
 	const [form, setForm] = useState({ username: "john", password: "12341234" });
+	const { password, username } = form;
 	const [register] = useRegisterMutation();
 	const stateAuth = useSelector((state) => state.auth);
 	const { isAuthenticated } = stateAuth;
-	const { password, username } = form;
 
 	useEffect(() => {
 		if (isAuthenticated) {

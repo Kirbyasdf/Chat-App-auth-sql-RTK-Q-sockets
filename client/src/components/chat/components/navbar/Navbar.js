@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../../redux/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "../../../modal/Modal";
 import "./Navbar.scss";
 
 export const Navbar = () => {
@@ -9,6 +10,13 @@ export const Navbar = () => {
 	const { user } = stateAuth;
 	const dispatch = useDispatch();
 	const [showProfileOptions, setShowProfileOptions] = useState(false);
+	const [showProfileModal, setShowProfileModal] = useState(false);
+	const [form, setForm] = useState({ username: "", password: "" });
+	const { password, username } = form;
+
+	const submitForm = (e) => {
+		e.preventDefault();
+	};
 
 	return (
 		<div id="navbar">
@@ -24,9 +32,56 @@ export const Navbar = () => {
 				<FontAwesomeIcon icon="caret-down" className="fa-icon" />
 				{showProfileOptions && (
 					<div id="profile-options">
-						<p>Update Profile</p>
+						<p onClick={() => setShowProfileModal(true)}>Update Profile</p>
 						<p onClick={() => dispatch(logout())}>Logout</p>
 					</div>
+				)}
+
+				{showProfileModal && (
+					<Modal closeModal={() => setShowProfileModal(false)}>
+						<Fragment key="header">
+							<h3 className="m-0">Update Profile</h3>
+						</Fragment>
+
+						<Fragment key="body">
+							{" "}
+							<form onSubmit={submitForm}>
+								<div className="input-field mb-1">
+									<input
+										onChange={(e) =>
+											setForm({
+												...form,
+												username: e.target.value,
+											})
+										}
+										value={username}
+										required="required"
+										type="text"
+										placeholder="username"
+									/>
+								</div>
+								<div className="input-field mb-2">
+									<input
+										onChange={(e) =>
+											setForm({
+												...form,
+												password: e.target.value,
+											})
+										}
+										value={password}
+										required="required"
+										type="password"
+										placeholder="password"
+									/>
+								</div>
+							</form>
+						</Fragment>
+
+						<Fragment key="footer">
+							{" "}
+							<button className="btn-success">Update</button>
+						</Fragment>
+					</Modal>
 				)}
 			</div>
 		</div>

@@ -6,7 +6,7 @@ import { getToken } from "../utils/tokenStorage";
 
 export const store = configureStore({
 	reducer: { auth, [api.reducerPath]: api.reducer },
-	middleware: getDefaultMiddleware().concat(api.middleware, logger),
+	middleware: getDefaultMiddleware().concat(api.middleware),
 	preloadedState: {
 		auth: {
 			token: getToken(),
