@@ -13,7 +13,6 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		logout: (state) => {
-			console.log("hit");
 			removeToken();
 			state.user = null;
 			state.token = null;
